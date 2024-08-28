@@ -6,5 +6,9 @@
   "description": "Lets users modify their request headers.",
   "homepage_url": "https://github.com/Avvyxx/header-modifier",
 
-  "permissions": ["webRequest"]
+  "permissions": ["webRequest"],
+
+  "browser_action": {
+    "default_popup": "popup/popup.html"
+  }
 }
