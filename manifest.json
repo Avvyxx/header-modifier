@@ -4,5 +4,7 @@
   "version": "1.0",
 
   "description": "Lets users modify their request headers.",
-  "homepage_url": "https://github.com/Avvyxx/header-modifier"
+  "homepage_url": "https://github.com/Avvyxx/header-modifier",
+
+  "permissions": ["webRequest"]
 }
