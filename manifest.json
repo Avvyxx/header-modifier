@@ -14,9 +14,5 @@
 
   "options_ui": {
     "page": "options/options.html"
-  },
-
-  "background": {
-    "scripts": ["test.js"]
   }
 }
