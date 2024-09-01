@@ -2,10 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="options.css" />
   </head>
   <body>
-    <div>
-      <div id="ref_node" hidden="true">
+    <button id="add-item">Add</button>
+
+    <div id="container">
+      <div id="ref_node" hidden="true" class="item">
         <input type="text"/>
         <select>
           <option value="replace">Replace</option>
@@ -16,5 +19,7 @@
         <input type="text"/>
       </div>
     </div>
+
+    <script src="options.js"></script>
   </body>
 </html>
