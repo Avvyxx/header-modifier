@@ -9,6 +9,8 @@ function add_item() {
   temp_node.children.item(0).onclick = remove_item;
 
   container.appendChild(temp_node);
+
+  return temp_node;
 }
 
 function remove_item(e) {
@@ -33,5 +35,17 @@ function update_storage() {
   }
 }
 
+function retrieve_storage(storage) {
+  for (const key in storage) {
+    const node = add_item();
+
+    node.children.item(1).value = key;
+    node.children.item(2).value = storage[key].action;
+    node.children.item(3).value = storage[key].value;
+  }
+}
+
 document.getElementById('add-item').addEventListener('click', add_item);
 document.getElementById('update-storage').addEventListener('click', update_storage);
+
+browser.storage.local.get().then(retrieve_storage);
