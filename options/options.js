@@ -24,6 +24,8 @@ function remove_item(e) {
 function update_storage() {
   browser.runtime.sendMessage('update headers');
 
+  browser.storage.local.clear();
+
   for (let i = 1; i < container.children.length; i++) {
     const item = container.children.item(i);
     const header_input = item.children.item(1);
