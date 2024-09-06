@@ -17,9 +17,13 @@ function remove_item(e) {
   e.target.parentElement.remove();
 
   browser.storage.local.remove(e.target.nextElementSibling.value);
+
+  browser.runtime.sendMessage('update headers');
 }
 
 function update_storage() {
+  browser.runtime.sendMessage('update headers');
+
   for (let i = 1; i < container.children.length; i++) {
     const item = container.children.item(i);
     const header_input = item.children.item(1);

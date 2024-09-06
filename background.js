@@ -1,8 +1,18 @@
 let modified_headers;
 
-browser.storage.local.get((storage) => {
-  modified_headers = storage;
-});
+function update_current_headers() {
+  browser.storage.local.get((storage) => {
+    modified_headers = storage;
+  })
+}
+
+update_current_headers()
+
+browser.runtime.onMessage.addListener((m) => {
+  if (m === 'update headers') {
+    update_current_headers();
+  }
+})
 
 function apply_changes(e) {
   for (const name in modified_headers) {
@@ -20,7 +30,7 @@ function apply_changes(e) {
       }
 
     } else { // not found in request headers
-
+      console.log('not found')
     }
 
   }
