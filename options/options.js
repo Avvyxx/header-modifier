@@ -24,21 +24,21 @@ function remove_item(e) {
 function update_storage() {
   browser.runtime.sendMessage('update headers');
 
-  browser.storage.local.clear();
+  const current_settings = {};
 
   for (let i = 1; i < container.children.length; i++) {
     const item = container.children.item(i);
     const header_input = item.children.item(1);
 
     if (header_input.value) {
-      browser.storage.local.set({
-        [header_input.value]: {
-          action: item.children.item(2).value,
-          value: item.children.item(3).value
-        }
-      })
+      current_settings[header_input.value] = {
+        action: item.children.item(2).value,
+        value: item.children.item(3).value
+      }
     }
   }
+
+  browser.storage.local.set({ current_settings });
 }
 
 document.getElementById('add-item').addEventListener('click', add_item);
