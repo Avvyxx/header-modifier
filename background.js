@@ -26,7 +26,7 @@ function apply_changes(e) {
       } else if (action === 'append') {
         header.value += modified_headers[name].value;
       } else if (action === 'remove') {
-        e.requestHeaders = e.requestHeaders.filter(i => i.name !== name);
+        e.requestHeaders = e.requestHeaders.filter(i => i.name.toLowerCase() !== name.toLowerCase());
       }
 
     } else { // not found in request headers
