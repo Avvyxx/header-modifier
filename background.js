@@ -14,9 +14,9 @@ browser.runtime.onMessage.addListener((m) => {
   }
 })
 
-function apply_changes(e) {
+function apply_changes({ requestHeaders }) {
   for (const name in modified_headers) {
-    const header = e.requestHeaders.find(i => i.name.toLowerCase() === name.toLowerCase())
+    const header = requestHeaders.find(i => i.name.toLowerCase() === name.toLowerCase())
 
     if (header) { // found in request headers
       const { action } = modified_headers[name]
@@ -26,7 +26,7 @@ function apply_changes(e) {
       } else if (action === 'append') {
         header.value += modified_headers[name].value;
       } else if (action === 'remove') {
-        e.requestHeaders = e.requestHeaders.filter(i => i.name.toLowerCase() !== name.toLowerCase());
+        requestHeaders = requestHeaders.filter(i => i.name.toLowerCase() !== name.toLowerCase());
       }
 
     } else { // not found in request headers
@@ -36,7 +36,7 @@ function apply_changes(e) {
   }
 
   return {
-    requestHeaders: e.requestHeaders
+    requestHeaders
   };
 }
 
