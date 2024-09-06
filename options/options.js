@@ -14,11 +14,11 @@ function add_item() {
 }
 
 function remove_item(e) {
+  browser.runtime.sendMessage('update headers');
+
   e.target.parentElement.remove();
 
-  browser.storage.local.remove(e.target.nextElementSibling.value);
-
-  browser.runtime.sendMessage('update headers');
+  update_storage();
 }
 
 function update_storage() {
