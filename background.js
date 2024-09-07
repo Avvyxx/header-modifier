@@ -1,8 +1,8 @@
 let modified_headers;
 
 function update_current_headers() {
-  browser.storage.local.get((storage) => {
-    modified_headers = storage;
+  browser.storage.local.get('current_settings').then(({ current_settings }) => {
+    modified_headers = current_settings
   })
 }
 
