@@ -51,10 +51,10 @@ function remove_item(e) {
 
   e.target.parentElement.remove();
 
-  update_storage();
+  update_current_settings();
 }
 
-function update_storage() {
+function update_current_settings() {
   browser.runtime.sendMessage('update headers');
 
   const current_settings = {};
@@ -75,4 +75,4 @@ function update_storage() {
 }
 
 document.getElementById('add-item').addEventListener('click', add_item);
-document.getElementById('update-storage').addEventListener('click', update_storage);
+document.getElementById('update-storage').addEventListener('click', update_current_settings);
