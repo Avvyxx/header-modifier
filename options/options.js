@@ -74,5 +74,24 @@ function update_current_settings() {
   browser.storage.local.set({ current_settings });
 }
 
+function save_settings() {
+  const name = document.getElementById('saved-name').value;
+
+  if (name) {
+    browser.storage.local.get(['saved_settings', 'current_settings']).then(({ saved_settings, current_settings }) => {
+      if (!saved_settings) {
+        saved_settings = {};
+      }
+
+      saved_settings[name] = current_settings;
+
+      browser.storage.local.set({ saved_settings })
+    });
+  } else {
+    console.log('no name provided');
+  }
+}
+
 document.getElementById('add-item').addEventListener('click', add_item);
 document.getElementById('update-storage').addEventListener('click', update_current_settings);
+document.getElementById('save').addEventListener('click', save_settings);
