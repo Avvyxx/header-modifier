@@ -1,6 +1,8 @@
 function retrieve_storage({ current_settings }) {
+  const arr = [];
+
   for (const key in current_settings) {
-    const node = add_item();
+    const node = create_new_item()
 
     const value_element = node.children.item(3);
 
@@ -11,7 +13,11 @@ function retrieve_storage({ current_settings }) {
     if (current_settings[key].action === 'remove') {
       value_element.setAttribute('hidden', '');
     }
+
+    arr.push(node);
   }
+
+  container.replaceChildren(...arr);
 }
 
 browser.storage.local.get('current_settings').then(retrieve_storage);

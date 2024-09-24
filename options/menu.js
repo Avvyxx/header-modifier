@@ -1,3 +1,7 @@
+function add_item() {
+  container.appendChild(create_new_item());
+}
+
 function update_current_settings() {
   browser.runtime.sendMessage('update headers');
 
@@ -36,5 +40,6 @@ function save_settings() {
   }
 }
 
+document.getElementById('add-item').addEventListener('click', add_item);
 document.getElementById('update-storage').addEventListener('click', update_current_settings);
 document.getElementById('save').addEventListener('click', save_settings);

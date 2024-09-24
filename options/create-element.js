@@ -3,7 +3,7 @@ const ref_node = document.getElementById('ref_node');
 
 let count = 0;
 
-function add_item() {
+function create_new_item() {
   const temp_node = ref_node.cloneNode(true);
   temp_node.removeAttribute('hidden');
   temp_node.removeAttribute('id');
@@ -40,8 +40,6 @@ function add_item() {
   value_element.setAttribute('list', datalist_id);
   datalist_element.id = datalist_id;
 
-  container.appendChild(temp_node);
-
   count += 1;
 
   return temp_node;
@@ -62,5 +60,3 @@ function remove_item(e) {
 
   update_current_settings();
 }
-
-document.getElementById('add-item').addEventListener('click', add_item);
