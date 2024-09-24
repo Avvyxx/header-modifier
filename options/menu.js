@@ -1,4 +1,5 @@
 const saved_element = document.getElementById('saved');
+const save_name_element = document.getElementById('saved-name');
 
 function add_item() {
   container.appendChild(create_new_item());
@@ -25,7 +26,7 @@ function update_current_settings() {
 }
 
 function save_settings() {
-  const name = document.getElementById('saved-name').value;
+  const name = save_name_element.value;
 
   if (name) {
     browser.storage.local.get(['saved_settings', 'current_settings']).then(({ saved_settings, current_settings }) => {
@@ -48,6 +49,8 @@ function load_saved_settings() {
 
     browser.storage.local.set({ current_settings }).then(() => {
       retrieve_storage({ current_settings });
+
+    save_name_element.value = saved_element.value;
     });
   });
 }
