@@ -13,8 +13,17 @@ function add_item() {
   temp_node.children.item(0).onclick = remove_item;
 
   const name_element = temp_node.children.item(1);
+  const action_element = temp_node.children.item(2);
   const value_element = temp_node.children.item(3);
   const datalist_element = temp_node.children.item(4);
+
+  action_element.onchange = () => {
+    if (action_element.value === 'remove') {
+      value_element.setAttribute('hidden', '');
+    } else {
+      value_element.removeAttribute('hidden');
+    }
+  }
 
   // this probably isnt the best way to achieve this
   value_element.onclick = () => {
