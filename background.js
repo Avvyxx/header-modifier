@@ -14,29 +14,62 @@ browser.runtime.onMessage.addListener((m) => {
   }
 })
 
+function from_headers(requestHeaders) {
+  const obj = {};
+
+  for (const header of requestHeaders) {
+    obj[header.name.toLowerCase()] = header.value;
+  }
+
+  return obj;
+}
+
+function to_headers(headers) {
+  const arr = [];
+
+  for (const name in headers) {
+    arr.push({
+      name,
+      value: headers[name]
+    });
+  }
+
+  return arr;
+}
+
 function apply_changes({ requestHeaders }) {
+  const request_obj = from_headers(requestHeaders);
+
   for (const name in modified_headers) {
-    const header = requestHeaders.find(i => i.name.toLowerCase() === name.toLowerCase())
+    const { action, value } = modified_headers[name];
 
-    if (header) { // found in request headers
-      const { action } = modified_headers[name]
+    const header_exists = Object.hasOwn(request_obj, name);
 
-      if (action === 'replace') {
-        header.value = modified_headers[name].value;
-      } else if (action === 'append') {
-        header.value += modified_headers[name].value;
-      } else if (action === 'remove') {
-        requestHeaders = requestHeaders.filter(i => i.name.toLowerCase() !== name.toLowerCase());
+    if (action === 'replace') {
+      if (header_exists) {
+        request_obj[name] = value;
+      } else {
+        console.log('Header cannot be replaced because it does not exist.');
       }
-
-    } else { // not found in request headers
-      console.log('not found')
+      request_obj[name] = value;
+    } else if (action === 'append') {
+      if (header_exists) {
+        request_obj[name] += value;
+      } else {
+        console.log('Header cannot be appended to because it does not exist.');
+      }
+      request_obj[name] += value;
+    } else if (action === 'remove') {
+      delete request_obj[name]
+    } else if (action === 'add') {
+      request_obj[name] = value;
+    } else {
+      console.log('Action non existent.')
     }
-
   }
 
   return {
-    requestHeaders
+    requestHeaders: to_headers(request_obj)
   };
 }
 
