@@ -51,6 +51,8 @@ function load_saved_settings() {
       retrieve_storage({ current_settings });
 
       save_name_element.value = saved_element.value;
+
+      browser.runtime.sendMessage('update headers');
     });
   });
 }
