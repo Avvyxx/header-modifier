@@ -1,3 +1,6 @@
+// temporary
+browser.runtime.openOptionsPage();
+
 let modified_headers;
 
 function update_current_headers() {
@@ -58,7 +61,6 @@ function apply_changes({ requestHeaders }) {
       } else {
         console.log('Header cannot be appended to because it does not exist.');
       }
-      request_obj[name] += value;
     } else if (action === 'remove') {
       delete request_obj[name]
     } else if (action === 'add') {
