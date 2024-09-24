@@ -20,4 +20,16 @@ function retrieve_storage({ current_settings }) {
   container.replaceChildren(...arr);
 }
 
+function retrieve_saved({ saved_settings }) {
+  for (const name in saved_settings) {
+    const option_element = document.createElement('option')
+
+    option_element.value = name;
+    option_element.innerHTML = name;
+
+    saved_element.appendChild(option_element);
+  }
+}
+
 browser.storage.local.get('current_settings').then(retrieve_storage);
+browser.storage.local.get('saved_settings').then(retrieve_saved);

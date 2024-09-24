@@ -1,3 +1,5 @@
+const saved_element = document.getElementById('saved')
+
 function add_item() {
   container.appendChild(create_new_item());
 }
@@ -40,6 +42,17 @@ function save_settings() {
   }
 }
 
+function load_saved_settings() {
+  browser.storage.local.get('saved_settings').then(({ saved_settings }) => {
+    const current_settings = saved_settings[saved_element.value];
+
+    browser.storage.local.set({ current_settings }).then(() => {
+        retrieve_storage({ current_settings });
+    });
+  });
+}
+
 document.getElementById('add-item').addEventListener('click', add_item);
 document.getElementById('update-storage').addEventListener('click', update_current_settings);
 document.getElementById('save').addEventListener('click', save_settings);
+saved_element.addEventListener('change', load_saved_settings);
