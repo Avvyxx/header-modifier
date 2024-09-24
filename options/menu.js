@@ -50,7 +50,7 @@ function load_saved_settings() {
     browser.storage.local.set({ current_settings }).then(() => {
       retrieve_storage({ current_settings });
 
-    save_name_element.value = saved_element.value;
+      save_name_element.value = saved_element.value;
     });
   });
 }
