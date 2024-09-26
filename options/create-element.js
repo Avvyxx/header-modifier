@@ -26,16 +26,16 @@ function create_new_item() {
   }
 
   // this probably isnt the best way to achieve this
-  value_element.onclick = () => {
-    browser.storage.local.get('possible_values').then(({ possible_values }) => {
-      const v = [
-        ...possible_values.default[name_element.value],
-        ...possible_values.user[name_element.value]
-      ];
+  // value_element.onclick = () => {
+  //   browser.storage.local.get('possible_values').then(({ possible_values }) => {
+  //     const v = [
+  //       ...possible_values.default[name_element.value],
+  //       ...possible_values.user[name_element.value]
+  //     ];
 
-      datalist_element.replaceChildren(...v.map(i => create_option(i)));
-    });
-  };
+  //     datalist_element.replaceChildren(...v.map(i => create_option(i)));
+  //   });
+  // };
 
   value_element.setAttribute('list', datalist_id);
   datalist_element.id = datalist_id;
