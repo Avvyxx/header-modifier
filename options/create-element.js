@@ -49,8 +49,9 @@ function create_option(value) {
   const option_element = document.createElement('option');
 
   option_element.value = value;
+  option_element.innerHTML = value;
 
-  return option_element
+  return option_element;
 }
 
 function remove_item(e) {

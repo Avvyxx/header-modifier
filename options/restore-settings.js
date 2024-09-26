@@ -22,12 +22,7 @@ function retrieve_storage({ current_settings }) {
 
 function retrieve_saved({ saved_settings }) {
   for (const name in saved_settings) {
-    const option_element = document.createElement('option')
-
-    option_element.value = name;
-    option_element.innerHTML = name;
-
-    saved_element.appendChild(option_element);
+    saved_element.appendChild(create_option(name));
   }
 }
 
