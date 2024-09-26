@@ -45,6 +45,8 @@ function save_settings() {
       saved_settings[name] = get_current_items();
 
       browser.storage.local.set({ saved_settings }).then(send_update_headers);
+
+      saved.appendChild(create_option(name));
     });
   } else {
     console.log('no name provided');
