@@ -5,38 +5,46 @@ function add_item() {
   container.appendChild(create_new_item());
 }
 
-function update_current_settings() {
+function send_update_headers() {
   browser.runtime.sendMessage('update headers');
+}
 
-  const current_settings = {};
+function get_current_items() {
+  const headers = {};
 
-  for (let i = 1; i < container.children.length; i++) {
+  for (let i = 0; i < container.children.length; i++) {
     const item = container.children.item(i);
     const header_input = item.children.item(1);
 
     if (header_input.value) {
-      current_settings[header_input.value] = {
+      headers[header_input.value] = {
         action: item.children.item(2).value,
         value: item.children.item(3).value
       };
     }
   }
 
-  browser.storage.local.set({ current_settings });
+  return headers;
+}
+
+function update_current_settings() {
+  const current_settings = get_current_items();
+
+  browser.storage.local.set({ current_settings }).then(send_update_headers);
 }
 
 function save_settings() {
   const name = save_name_element.value;
 
   if (name) {
-    browser.storage.local.get(['saved_settings', 'current_settings']).then(({ saved_settings, current_settings }) => {
+    browser.storage.local.get('saved_settings').then(({ saved_settings }) => {
       if (!saved_settings) {
         saved_settings = {};
       }
 
-      saved_settings[name] = current_settings;
+      saved_settings[name] = get_current_items();
 
-      browser.storage.local.set({ saved_settings });
+      browser.storage.local.set({ saved_settings }).then(send_update_headers);
     });
   } else {
     console.log('no name provided');
@@ -52,7 +60,7 @@ function load_saved_settings() {
 
       save_name_element.value = saved_element.value;
 
-      browser.runtime.sendMessage('update headers');
+      send_update_headers();
     });
   });
 }
