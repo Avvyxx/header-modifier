@@ -21,9 +21,13 @@ function retrieve_storage({ current_settings }) {
 }
 
 function retrieve_saved({ saved_settings }) {
+  const arr = [];
+
   for (const name in saved_settings) {
-    saved_element.appendChild(create_option(name));
+    arr.push(create_option(name));
   }
+
+  saved.replaceChildren(...arr);
 }
 
 browser.storage.local.get('current_settings').then(retrieve_storage);
