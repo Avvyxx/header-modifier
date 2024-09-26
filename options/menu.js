@@ -44,9 +44,9 @@ function save_settings() {
 
       saved_settings[name] = get_current_items();
 
-      browser.storage.local.set({ saved_settings });
-
-      saved.appendChild(create_option(name));
+      browser.storage.local.set({ saved_settings }).then(() => {
+        retrieve_saved({ saved_settings });
+      });
     });
   } else {
     console.log('no name provided');
